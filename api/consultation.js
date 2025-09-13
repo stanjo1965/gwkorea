@@ -1,3 +1,5 @@
+const nodemailer = require('nodemailer');
+
 export default async function handler(req, res) {
   // CORS 설정
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -20,29 +22,52 @@ export default async function handler(req, res) {
   }
 
   // 환경변수 확인
-  console.log('Environment variables:', {
-    EMAIL_USER: process.env.EMAIL_USER ? '설정됨' : '설정 안됨',
-    EMAIL_PASS: process.env.EMAIL_PASS ? '설정됨' : '설정 안됨',
-    RECIPIENT_EMAIL: process.env.RECIPIENT_EMAIL ? '설정됨' : '설정 안됨'
-  });
-
   if (!process.env.EMAIL_PASS) {
     console.error('EMAIL_PASS 환경변수가 설정되지 않았습니다.');
     return res.status(500).json({ success: false, message: '이메일 설정이 완료되지 않았습니다.' });
   }
 
   try {
-    // 간단한 응답으로 테스트
-    console.log('상담 신청 데이터:', { name, phone, email, company, message });
+    // 이메일 전송을 위한 트랜스포터 설정 (네이버 메일 서버 사용)
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.naver.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER || 'chaoboy1@naver.com',
+        pass: process.env.EMAIL_PASS,
+      }
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER || 'chaoboy1@naver.com',
+      to: process.env.RECIPIENT_EMAIL || 'sangkeun.jo@gmail.com',
+      subject: `[GW코리아] 새로운 상담 신청: ${company} - ${name}`,
+      html: `
+        <h2>GW코리아 상담 신청</h2>
+        <p><strong>이름:</strong> ${name}</p>
+        <p><strong>연락처:</strong> ${phone}</p>
+        <p><strong>이메일:</strong> ${email}</p>
+        <p><strong>회사명:</strong> ${company}</p>
+        <p><strong>문의사항:</strong> ${message || '없음'}</p>
+        <hr>
+        <p><small>신청 시간: ${new Date().toLocaleString('ko-KR')}</small></p>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log('이메일 전송 성공:', { name, company, email });
     
-    // TODO: 실제 이메일 전송 로직은 나중에 추가
     res.status(200).json({ 
       success: true, 
-      message: '상담 신청이 성공적으로 접수되었습니다.',
-      data: { name, phone, email, company, message }
+      message: '상담 신청이 성공적으로 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.'
     });
   } catch (error) {
-    console.error('처리 중 오류:', error);
-    res.status(500).json({ success: false, message: '처리 중 오류가 발생했습니다.', error: error.message });
+    console.error('이메일 전송 실패:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: '이메일 전송 중 오류가 발생했습니다. 다시 시도해주세요.',
+      error: error.message 
+    });
   }
 }
