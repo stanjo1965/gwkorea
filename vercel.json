@@ -3,10 +3,5 @@
     "api/consultation.js": {
       "runtime": "nodejs18.x"
     }
-  },
-  "env": {
-    "EMAIL_USER": "@email_user",
-    "EMAIL_PASS": "@email_pass",
-    "RECIPIENT_EMAIL": "@recipient_email"
   }
 }
