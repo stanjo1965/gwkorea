@@ -1,12 +1,9 @@
 {
+  "public": true,
   "rewrites": [
     {
-      "source": "/",
-      "destination": "/industrial-landing.html"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
