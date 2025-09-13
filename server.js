@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.static('.'));
 
 // 이메일 전송을 위한 트랜스포터 설정 (네이버 메일 서버 사용)
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
   host: 'smtp.naver.com',
   port: 465,  // 네이버는 465 포트 사용
   secure: true,  // 465 포트는 SSL/TLS 사용
