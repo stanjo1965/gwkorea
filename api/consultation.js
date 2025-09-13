@@ -21,8 +21,14 @@ export default async function handler(req, res) {
     return res.status(400).json({ success: false, message: '필수 입력 항목을 모두 채워주세요.' });
   }
 
+  // 환경변수 확인
+  if (!process.env.EMAIL_PASS) {
+    console.error('EMAIL_PASS 환경변수가 설정되지 않았습니다.');
+    return res.status(500).json({ success: false, message: '이메일 설정이 완료되지 않았습니다.' });
+  }
+
   // 이메일 전송을 위한 트랜스포터 설정 (네이버 메일 서버 사용)
-  const transporter = nodemailer.createTransporter({
+  const transporter = nodemailer.createTransport({
     host: 'smtp.naver.com',
     port: 465,
     secure: true,
