@@ -137,6 +137,7 @@ form.addEventListener('submit', async (e) => {
         
         const result = await response.json();
         
+        
         if (result.success) {
             // 성공 처리
             showNotification('상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.', 'success');
