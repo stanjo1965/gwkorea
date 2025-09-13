@@ -1,1 +1,13 @@
-{}
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ],
+  "functions": {
+    "api/consultation.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}
