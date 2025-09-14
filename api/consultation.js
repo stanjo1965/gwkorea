@@ -31,14 +31,15 @@ export default async function handler(req, res) {
     // 이메일 전송을 위한 트랜스포터 설정 (네이버 메일 서버 사용)
     const transporter = nodemailer.createTransport({
       host: 'smtp.naver.com',
-      port: 587,  // 네이버 SMTP 포트 587 사용
-      secure: false,  // 587 포트는 TLS 사용 (STARTTLS)
+      port: 465,  // 네이버 SMTP 포트 465 사용 (SSL)
+      secure: true,  // 465 포트는 SSL 사용
       auth: {
         user: process.env.EMAIL_USER || 'chaoboy1@naver.com',
         pass: process.env.EMAIL_PASS,
       },
       tls: {
-        rejectUnauthorized: false  // TLS 인증서 검증 무시
+        rejectUnauthorized: false,  // TLS 인증서 검증 무시
+        ciphers: 'SSLv3'
       }
     });
 

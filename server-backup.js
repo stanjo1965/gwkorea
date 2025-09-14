@@ -14,23 +14,24 @@ app.use(express.static('.'));
 // 이메일 전송을 위한 트랜스포터 설정 (네이버 메일 서버 사용)
 const transporter = nodemailer.createTransport({
   host: 'smtp.naver.com',
-  port: 587,  // 네이버 SMTP 포트 587 사용
-  secure: false,  // 587 포트는 TLS 사용 (STARTTLS)
+  port: 465,  // 네이버 SMTP 포트 465 사용 (SSL)
+  secure: true,  // 465 포트는 SSL 사용
   auth: {
     user: process.env.EMAIL_USER || 'chaoboy1@naver.com',
     pass: process.env.EMAIL_PASS,
   },
   tls: {
-    rejectUnauthorized: false  // TLS 인증서 검증 무시
+    rejectUnauthorized: false,  // TLS 인증서 검증 무시
+    ciphers: 'SSLv3'
   }
 });
 
 // 디버그용 로그
 console.log('이메일 설정:', {
   host: 'smtp.naver.com',
-  port: 587,
-  secure: false,
-  tls: 'STARTTLS',
+  port: 465,
+  secure: true,
+  ssl: 'SSL',
   user: process.env.EMAIL_USER,
   pass: '비밀번호 설정됨',
   recipient: process.env.RECIPIENT_EMAIL || 'sangkeun.jo@gmail.com'
@@ -60,18 +61,27 @@ app.post('/api/consultation', async (req, res) => {
     };
 
     // 이메일 전송
-    await transporter.sendMail(mailOptions);
+    console.log('이메일 전송 시작:', mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    console.log('이메일 전송 성공:', info.messageId);
     
     res.json({ 
       success: true, 
-      message: '상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.' 
+      message: '상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.',
+      messageId: info.messageId
     });
 
   } catch (error) {
-    console.error('이메일 전송 오류:', error);
+    console.error('이메일 전송 오류 상세:', {
+      message: error.message,
+      code: error.code,
+      command: error.command,
+      response: error.response
+    });
     res.status(500).json({ 
       success: false, 
-      message: '상담 신청 중 오류가 발생했습니다. 다시 시도해주세요.' 
+      message: '상담 신청 중 오류가 발생했습니다. 다시 시도해주세요.',
+      error: error.message
     });
   }
 });
