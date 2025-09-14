@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>(주)지더블유코리아 - 신재생에너지 Total Solution 전문기업</title>
     <meta name="description" content="(주)지더블유코리아는 신재생에너지 Total Solution 전문기업입니다. 오늘의 기후 위기를 내일의 성장 기회로, 1,000개소 이상 시공·관리 경험을 바탕으로 혁신적인 에너지 솔루션을 제공합니다.">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="industrial-styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -138,7 +138,7 @@
             </div>
         </div>
     </section>
-
+    
     <!-- 서비스 소개 섹션 -->
     <section id="services" class="services">
         <div class="container">
@@ -195,6 +195,7 @@
                 <p>안정적인 수익과 다양한 혜택을 제공합니다</p>
             </div>
             <div class="benefits-content">
+                <!-- 메인 수익 구조 -->
                 <div class="benefit-card main-benefit">
                     <div class="benefit-header">
                         <i class="fas fa-won-sign"></i>
@@ -202,7 +203,7 @@
                     </div>
                     <div class="benefit-details">
                         <div class="revenue-item">
-                            <span class="revenue-label">임대료</span>
+                            <span class="revenue-label">기본 임대료</span>
                             <span class="revenue-value">연 1억원 이상/1MW</span>
                         </div>
                         <div class="revenue-item">
@@ -213,13 +214,100 @@
                             <span class="revenue-label">근로복지기금</span>
                             <span class="revenue-value">추가 지원 혜택</span>
                         </div>
+                        <div class="revenue-item">
+                            <span class="revenue-label">계약 기간</span>
+                            <span class="revenue-value">20년 장기 계약</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 추가 혜택 -->
+                <div class="benefit-card special-benefit">
+                    <div class="benefit-header">
+                        <i class="fas fa-gift"></i>
+                        <h3>특별 혜택</h3>
+                    </div>
+                    <div class="benefit-details">
+                        <div class="special-offer">
+                            <span class="offer-highlight">IBK 우대금리</span>
+                            <span class="offer-detail">기업은행 특별 금리 지원</span>
+                        </div>
+                        <ul class="offer-benefits">
+                            <li>무료 사업성 분석</li>
+                            <li>맞춤형 설계안 제공</li>
+                            <li>수익성 시뮬레이션</li>
+                            <li>시공비 지원 프로그램</li>
+                            <li>A/S 무상 보장</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 수익 시뮬레이션 -->
+                <div class="benefit-card simulation-card">
+                    <div class="benefit-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>수익 시뮬레이션</h3>
+                    </div>
+                    <div class="simulation-content">
+                        <div class="simulation-item">
+                            <div class="simulation-label">1MW 기준 연간 수익</div>
+                            <div class="simulation-value">1억원 ~ 1.2억원</div>
+                        </div>
+                        <div class="simulation-item">
+                            <div class="simulation-label">20년 총 수익</div>
+                            <div class="simulation-value">20억원 ~ 24억원</div>
+                        </div>
+                        <div class="simulation-item">
+                            <div class="simulation-label">월 평균 수익</div>
+                            <div class="simulation-value">830만원 ~ 1,000만원</div>
+                        </div>
+                        <div class="simulation-note">
+                            <i class="fas fa-info-circle"></i>
+                            <span>실제 수익은 발전량과 전력판매가격에 따라 변동될 수 있습니다.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 투자 안정성 -->
+                <div class="benefit-card stability-card">
+                    <div class="benefit-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>투자 안정성</h3>
+                    </div>
+                    <div class="stability-content">
+                        <div class="stability-item">
+                            <div class="stability-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <div class="stability-text">
+                                <h4>장기 계약 보장</h4>
+                                <p>20년 장기 임대계약으로 안정적인 수익 보장</p>
+                            </div>
+                        </div>
+                        <div class="stability-item">
+                            <div class="stability-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="stability-text">
+                                <h4>정부 정책 지원</h4>
+                                <p>재생에너지 정책과 FIT 제도로 안정성 확보</p>
+                            </div>
+                        </div>
+                        <div class="stability-item">
+                            <div class="stability-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="stability-text">
+                                <h4>전문 A/S</h4>
+                                <p>설비 유지보수 및 수리비 무상 지원</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    
     <!-- 실적/포트폴리오 섹션 -->
     <section id="portfolio" class="portfolio">
         <div class="container">
@@ -758,8 +846,12 @@
                         <input type="tel" id="phone" name="phone" required>
                     </div>
                     <div class="form-group">
-                        <label for="company">회사명</label>
-                        <input type="text" id="company" name="company">
+                        <label for="company">회사명 *</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일 *</label>
+                        <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="assetType">보유자산 유형 *</label>
@@ -863,7 +955,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="industrial-script.js"></script>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
