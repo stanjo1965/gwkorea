@@ -86,15 +86,14 @@ form.addEventListener('submit', async (e) => {
     const data = {
         name: formData.get('name'),
         phone: formData.get('phone'),
+        email: formData.get('email'),
         company: formData.get('company'),
-        assetType: formData.get('assetType'),
-        intention: formData.get('intention'),
         message: formData.get('message'),
         timestamp: new Date().toISOString()
     };
     
     // 유효성 검사
-    if (!data.name || !data.phone || !data.assetType || !data.intention) {
+    if (!data.name || !data.phone || !data.email || !data.company) {
         showNotification('필수 항목을 모두 입력해주세요.', 'error');
         return;
     }
@@ -113,36 +112,53 @@ form.addEventListener('submit', async (e) => {
     submitButton.disabled = true;
     
     try {
-        // Formspree를 사용한 자동 메일 전송
-        const formData = new FormData();
-        formData.append('access_key', 'YOUR_FORMSPREE_ACCESS_KEY'); // Formspree 액세스 키로 교체 필요
-        formData.append('subject', `[상담신청] ${data.name}님의 태양광 상담 신청`);
-        formData.append('name', data.name);
-        formData.append('phone', data.phone);
-        formData.append('company', data.company || '미입력');
-        formData.append('assetType', getAssetTypeText(data.assetType));
-        formData.append('intention', getIntentionText(data.intention));
-        formData.append('message', data.message || '미입력');
-        formData.append('timestamp', new Date().toLocaleString('ko-KR'));
-        formData.append('reply_to', 'sangkeun.jo@gmail.com');
+        // 로컬 서버가 실행 중인지 확인
+        const isLocalServer = window.location.hostname === 'localhost' && window.location.port === '3000';
+        const isFileProtocol = window.location.protocol === 'file:';
         
-        // Formspree로 메일 전송
-        const response = await fetch('https://formspree.io/f/YOUR_FORMSPREE_ACCESS_KEY', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            // 성공 처리
-            showNotification('상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.', 'success');
+        if (isFileProtocol) {
+            // 파일 프로토콜: 시뮬레이션
+            await new Promise(resolve => setTimeout(resolve, 2000)); // 2초 대기
+            
+            console.log('파일 프로토콜 - 폼 데이터:', data);
+            showNotification('상담 신청이 완료되었습니다! (시뮬레이션)', 'success');
             form.reset();
+        } else if (isLocalServer) {
+            // 로컬 서버: 실제 이메일 발송
+            const response = await fetch('/api/consultation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('상담 신청이 완료되었습니다! 이메일로 문의사항을 전송했습니다.', 'success');
+                form.reset();
+            } else {
+                showNotification(result.message || '상담 신청 중 오류가 발생했습니다.', 'error');
+            }
         } else {
-            throw new Error('Form submission failed');
+            // 배포 환경: Vercel API 호출
+            const response = await fetch('/api/consultation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('상담 신청이 완료되었습니다! 빠른 시일 내에 연락드리겠습니다.', 'success');
+                form.reset();
+            } else {
+                showNotification(result.message || '상담 신청 중 오류가 발생했습니다.', 'error');
+            }
         }
         
         // Google Analytics 이벤트 전송
