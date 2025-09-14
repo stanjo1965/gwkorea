@@ -846,8 +846,9 @@ body {
 .before-after-container {
     display: flex;
     justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
+    gap: 2rem;
+    flex-wrap: nowrap;
+    align-items: flex-start;
 }
 
 /* about 섹션 내 공사 전후 이미지를 좌우로 배치 */
@@ -2134,8 +2135,9 @@ body {
     }
     
     .before-after-container {
-        flex-direction: column;
-        gap: 2rem;
+        flex-direction: row;
+        gap: 1rem;
+        flex-wrap: nowrap;
     }
     
     .before-after-item {
@@ -2399,10 +2401,11 @@ body {
         font-size: 0.9rem;
     }
     
-    /* 공사 전후 비교 모바일 - about 섹션은 좌우 유지 */
-    .construction-comparison:not(.about .construction-comparison) {
-        flex-direction: column;
-        gap: 15px;
+    /* 공사 전후 비교 모바일 - 모든 섹션에서 좌우 유지 */
+    .construction-comparison {
+        flex-direction: row;
+        gap: 1rem;
+        flex-wrap: nowrap;
     }
     
     .before-after-item .about-site-image {
