@@ -582,8 +582,8 @@ body {
 
 .benefits-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
 }
 
 .benefit-card {
@@ -684,6 +684,119 @@ body {
     left: 0;
     color: #1976D2;
     font-weight: bold;
+}
+
+/* 수익 시뮬레이션 카드 */
+.simulation-card {
+    background: linear-gradient(135deg, #E8F5E8, #C8E6C9);
+    border: 2px solid #2E7D32;
+}
+
+.simulation-card .benefit-header i {
+    color: #2E7D32;
+}
+
+.simulation-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.simulation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    border-left: 4px solid #4CAF50;
+}
+
+.simulation-label {
+    font-weight: 500;
+    color: #424242;
+    font-size: 0.95rem;
+}
+
+.simulation-value {
+    font-weight: 700;
+    color: #2E7D32;
+    font-size: 1.1rem;
+}
+
+.simulation-note {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #666;
+    border: 1px solid rgba(46, 125, 50, 0.2);
+}
+
+.simulation-note i {
+    color: #4CAF50;
+    font-size: 1rem;
+}
+
+/* 투자 안정성 카드 */
+.stability-card {
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+    border: 2px solid #FF9800;
+}
+
+.stability-card .benefit-header i {
+    color: #FF9800;
+}
+
+.stability-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.stability-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.stability-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.2);
+}
+
+.stability-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #FF9800, #FFB74D);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.stability-text h4 {
+    color: #E65100;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.stability-text p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
 }
 
 /* 포트폴리오 섹션 */
@@ -2110,6 +2223,22 @@ body {
     .benefits-content {
         grid-template-columns: 1fr;
         gap: 2rem;
+    }
+    
+    .simulation-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .stability-item {
+        padding: 1rem;
+    }
+    
+    .stability-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
     }
     
     .trust-content {
