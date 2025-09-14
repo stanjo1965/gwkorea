@@ -483,18 +483,37 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.disabled = true;
             
             try {
-                // 로컬 환경에서는 시뮬레이션, 배포 환경에서는 실제 API 호출
-                const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost';
+                // 로컬 서버가 실행 중인지 확인
+                const isLocalServer = window.location.hostname === 'localhost' && window.location.port === '3000';
+                const isFileProtocol = window.location.protocol === 'file:';
                 
-                if (isLocal) {
-                    // 로컬 환경: 시뮬레이션
+                if (isFileProtocol) {
+                    // 파일 프로토콜: 시뮬레이션
                     await new Promise(resolve => setTimeout(resolve, 2000)); // 2초 대기
                     
-                    console.log('로컬 환경 - 폼 데이터:', data);
-                    showNotification('상담 신청이 완료되었습니다! (로컬 환경 시뮬레이션)', 'success');
+                    console.log('파일 프로토콜 - 폼 데이터:', data);
+                    showNotification('상담 신청이 완료되었습니다! (시뮬레이션)', 'success');
                     consultationForm.reset();
+                } else if (isLocalServer) {
+                    // 로컬 서버: 실제 이메일 발송
+                    const response = await fetch('/api/consultation', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showNotification('상담 신청이 완료되었습니다! 이메일로 문의사항을 전송했습니다.', 'success');
+                        consultationForm.reset();
+                    } else {
+                        showNotification(result.message || '상담 신청 중 오류가 발생했습니다.', 'error');
+                    }
                 } else {
-                    // 배포 환경: 실제 API 호출
+                    // 배포 환경: Vercel API 호출
                     const response = await fetch('/api/consultation', {
                         method: 'POST',
                         headers: {

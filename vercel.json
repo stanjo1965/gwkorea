@@ -1,0 +1,12 @@
+{
+  "functions": {
+    "api/consultation.js": {
+      "runtime": "@vercel/node@3.0.7"
+    }
+  },
+  "env": {
+    "EMAIL_USER": "@email_user",
+    "EMAIL_PASS": "@email_pass", 
+    "RECIPIENT_EMAIL": "@recipient_email"
+  }
+}
