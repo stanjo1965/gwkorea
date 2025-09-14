@@ -470,6 +470,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: formData.get('message')
             };
             
+            // 필수 필드 검증
+            if (!data.name || !data.phone || !data.email || !data.company) {
+                showNotification('필수 항목을 모두 입력해주세요.', 'error');
+                return;
+            }
+            
             // 버튼 비활성화
             const submitButton = consultationForm.querySelector('.submit-button');
             const originalText = submitButton.innerHTML;
@@ -477,27 +483,40 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.disabled = true;
             
             try {
-                const response = await fetch('/api/consultation', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
+                // 로컬 환경에서는 시뮬레이션, 배포 환경에서는 실제 API 호출
+                const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost';
                 
-                const result = await response.json();
-                
-                if (result.success) {
-                    showNotification('상담 신청이 완료되었습니다! 빠른 시일 내에 연락드리겠습니다.', 'success');
+                if (isLocal) {
+                    // 로컬 환경: 시뮬레이션
+                    await new Promise(resolve => setTimeout(resolve, 2000)); // 2초 대기
+                    
+                    console.log('로컬 환경 - 폼 데이터:', data);
+                    showNotification('상담 신청이 완료되었습니다! (로컬 환경 시뮬레이션)', 'success');
                     consultationForm.reset();
                 } else {
-                    showNotification(result.message || '상담 신청 중 오류가 발생했습니다.', 'error');
+                    // 배포 환경: 실제 API 호출
+                    const response = await fetch('/api/consultation', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showNotification('상담 신청이 완료되었습니다! 빠른 시일 내에 연락드리겠습니다.', 'success');
+                        consultationForm.reset();
+                    } else {
+                        showNotification(result.message || '상담 신청 중 오류가 발생했습니다.', 'error');
+                    }
                 }
             } catch (error) {
                 console.error('Error:', error);
                 showNotification('네트워크 오류가 발생했습니다. 다시 시도해주세요.', 'error');
             } finally {
-                // 버튼 복원
+                // 버튼 복원 (항상 실행)
                 submitButton.innerHTML = originalText;
                 submitButton.disabled = false;
             }
