@@ -14,19 +14,23 @@ app.use(express.static('.'));
 // 이메일 전송을 위한 트랜스포터 설정 (네이버 메일 서버 사용)
 const transporter = nodemailer.createTransport({
   host: 'smtp.naver.com',
-  port: 465,  // 네이버는 465 포트 사용
-  secure: true,  // 465 포트는 SSL/TLS 사용
+  port: 587,  // 네이버 SMTP 포트 587 사용
+  secure: false,  // 587 포트는 TLS 사용 (STARTTLS)
   auth: {
     user: process.env.EMAIL_USER || 'chaoboy1@naver.com',
     pass: process.env.EMAIL_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false  // TLS 인증서 검증 무시
   }
 });
 
 // 디버그용 로그
 console.log('이메일 설정:', {
   host: 'smtp.naver.com',
-  port: 465,
-  secure: true,
+  port: 587,
+  secure: false,
+  tls: 'STARTTLS',
   user: process.env.EMAIL_USER,
   pass: '비밀번호 설정됨',
   recipient: process.env.RECIPIENT_EMAIL || 'sangkeun.jo@gmail.com'
