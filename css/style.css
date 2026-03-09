@@ -215,6 +215,9 @@ body {
 [data-theme="dark"] .tech-text h3 { color: var(--text); }
 [data-theme="dark"] .tech-text p { color: var(--text-2); }
 [data-theme="dark"] .tech-text li { color: var(--text-2); }
+[data-theme="dark"] .tech-points li { color: var(--text-2); }
+[data-theme="dark"] .method-card li { color: var(--text-2); border-bottom-color: var(--border); }
+[data-theme="dark"] .method-card.method-bad { opacity: 0.85; }
 [data-theme="dark"] .biz-card { background: var(--bg-card); border-color: var(--border); }
 [data-theme="dark"] .biz-card h3 { color: var(--text); }
 [data-theme="dark"] .biz-card p, [data-theme="dark"] .biz-card li { color: var(--text-2); }
@@ -1611,7 +1614,7 @@ section { padding: 90px 24px; }
 }
 .effect-label {
   font-size: 13px;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.92);
   margin-top: 6px;
   text-align: center;
 }
