@@ -1,0 +1,280 @@
+/* =========================================
+   GW코리아 히어로 슬라이더 스타일
+   ========================================= */
+
+/* ---- 슬라이더 컨테이너 ---- */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 620px;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* ---- 개별 슬라이드 ---- */
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease, transform 1s ease;
+  transform: scale(1.03);
+  pointer-events: none;
+}
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.slide.prev-slide {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+/* ---- 오버레이 ---- */
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 46, 26, 0.35) 0%,
+    rgba(26, 107, 58, 0.22) 60%,
+    rgba(10, 46, 26, 0.22) 100%
+  );
+}
+
+/* ---- 슬라이드 콘텐츠 ---- */
+.slide-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -52%);
+  width: 100%;
+  max-width: 860px;
+  padding: 0 40px;
+  text-align: center;
+  color: #fff;
+  z-index: 2;
+}
+
+/* ---- 뱃지 ---- */
+.slide-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245, 166, 35, 0.22);
+  border: 1.5px solid rgba(245, 166, 35, 0.55);
+  color: #f5a623;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-radius: 30px;
+  letter-spacing: 0.5px;
+  margin-bottom: 28px;
+}
+.slide-badge::before {
+  content: '●';
+  font-size: 8px;
+  animation: sliderBlink 1.5s infinite;
+}
+@keyframes sliderBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ---- 제목 ---- */
+.slide-title {
+  font-size: clamp(38px, 5.5vw, 68px);
+  font-weight: 900;
+  line-height: 1.18;
+  letter-spacing: -2px;
+  margin-bottom: 22px;
+  color: #fff;
+}
+.slide-title span {
+  color: #f5a623;
+}
+
+/* ---- 설명 ---- */
+.slide-desc {
+  font-size: clamp(16px, 2vw, 20px);
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+/* ---- 버튼 그룹 ---- */
+.slide-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f5a623;
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.btn-primary:hover {
+  background: #d4881a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245, 166, 35, 0.4);
+}
+
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.btn-outline-white:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ---- 화살표 버튼 ---- */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  font-size: 22px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+  padding: 0;
+}
+.slider-arrow:hover {
+  background: rgba(245, 166, 35, 0.6);
+  border-color: #f5a623;
+  transform: translateY(-50%) scale(1.08);
+}
+.slider-prev { left: 28px; }
+.slider-next { right: 28px; }
+
+/* ---- 도트 네비게이션 ---- */
+.slider-dots {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+}
+.slider-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+.slider-dot.active {
+  background: #f5a623;
+  border-color: #f5a623;
+  transform: scale(1.3);
+}
+.slider-dot:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* ---- 하단 실적 바 ---- */
+.hero-stats-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(10, 30, 18, 0.88);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 0;
+  height: 84px;
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+  font-size: 28px;
+  font-weight: 900;
+  color: #f5a623;
+  line-height: 1.1;
+}
+.hero-stat em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+.hero-stat-sep {
+  width: 1px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+/* ---- 반응형 ---- */
+@media (max-width: 1024px) {
+  .hero-stat { padding: 0 28px; font-size: 24px; }
+}
+
+@media (max-width: 768px) {
+  .hero-slider { min-height: 100svh; }
+  .slide-content { padding: 0 20px; transform: translate(-50%, -54%); }
+  .slider-arrow { width: 44px; height: 44px; font-size: 18px; }
+  .slider-prev { left: 12px; }
+  .slider-next { right: 12px; }
+  .hero-stats-bar { height: auto; padding: 12px 8px; flex-wrap: wrap; gap: 0; }
+  .hero-stat { padding: 8px 16px; font-size: 20px; }
+  .hero-stat-sep { display: none; }
+  .slider-dots { bottom: 140px; }
+}
+
+@media (max-width: 480px) {
+  .slide-title { letter-spacing: -1px; }
+  .slide-btns { flex-direction: column; align-items: center; }
+  .btn-primary, .btn-outline-white { width: 100%; max-width: 280px; justify-content: center; }
+  .hero-stat { font-size: 18px; padding: 6px 12px; }
+}

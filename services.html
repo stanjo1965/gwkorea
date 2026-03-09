@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GW코리아 서비스 - ACT System 건축, 태양광 발전, Genovation 전기절감 컨설팅 상세 안내">
+  <title>서비스 소개 | GW코리아</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chat.css">
+  <style>
+    .page-hero {
+      background: linear-gradient(135deg, #0a2e1a 0%, #1a6b3a 100%);
+      padding: 140px 24px 80px;
+      text-align: center;
+      color: white;
+    }
+    .page-hero h1 { font-size: clamp(32px,5vw,52px); font-weight:900; letter-spacing:-1.5px; margin-bottom:16px; }
+    .page-hero p { font-size:18px; color:rgba(255,255,255,0.8); }
+    .service-detail { padding: 90px 24px; }
+    .service-detail:nth-child(even) { background: var(--gray-light); }
+    .service-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .service-detail-grid.reverse { direction: rtl; }
+    .service-detail-grid.reverse > * { direction: ltr; }
+    .service-detail-visual {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .service-visual-box {
+      height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      font-size: 80px;
+    }
+    .act-visual { background: linear-gradient(135deg, #e8f5e9, #a5d6a7); }
+    .solar-visual { background: linear-gradient(135deg, #fff8e1, #ffcc02); }
+    .geno-visual { background: linear-gradient(135deg, #e3f2fd, #90caf9); }
+    .visual-stat {
+      background: white;
+      border-radius: 12px;
+      padding: 12px 24px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .visual-stat-num { font-size: 28px; font-weight: 900; color: var(--primary); }
+    .visual-stat-label { font-size: 12px; color: var(--gray); }
+    .spec-table { width:100%; border-collapse:collapse; margin-top:24px; border-radius:12px; overflow:hidden; }
+    .spec-table th { background:var(--primary); color:white; padding:12px 16px; font-size:13px; text-align:left; }
+    .spec-table td { padding:12px 16px; font-size:14px; border-bottom:1px solid #e5e7eb; }
+    .spec-table tr:last-child td { border-bottom:none; }
+    .spec-table tr:nth-child(even) td { background:#f9fafb; }
+    .spec-table .val { font-weight:700; color:var(--primary); }
+    .process-list { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+    .process-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 20px;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+    .process-step-num {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .process-item-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .process-item-desc { font-size: 13px; color: var(--gray); }
+    @media (max-width:768px) {
+      .service-detail-grid { grid-template-columns:1fr; }
+      .service-detail-grid.reverse { direction:ltr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.svg" alt="(주)지더블유 로고" class="nav-logo-img">
+    </a>
+    <div class="nav-menu" id="navMenu">
+      <a href="index.html#about">회사소개</a>
+      <a href="services.html" class="active">서비스</a>
+      <a href="index.html#portfolio">시공사례</a>
+      <a href="index.html#simulator">수익계산</a>
+      <a href="index.html#contact" class="nav-cta">무료 상담 신청</a>
+    </div>
+    <button class="lang-toggle" data-action="lang-toggle" aria-label="언어 전환">
+      <span data-i18n="nav.lang">EN</span>
+    </button>
+    <button class="theme-toggle" id="themeToggle" aria-label="다크 모드 전환">
+      <span class="theme-toggle-icon theme-icon-sun">☀️</span>
+      <span class="theme-toggle-icon theme-icon-moon">🌙</span>
+    </button>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- 페이지 히어로 -->
+<div class="page-hero">
+  <div class="section-label" style="background:rgba(245,166,35,0.2);color:var(--secondary);">Our Services</div>
+  <h1>GW코리아 3대 핵심 서비스</h1>
+  <p>건축·태양광·전기절감 — 에너지 통합 솔루션으로 당신의 건물을 수익 자산으로</p>
+</div>
+
+<!-- =========================================
+     서비스 01: ACT System
+     ========================================= -->
+<section class="service-detail" id="act">
+  <div class="service-detail-grid">
+    <div class="fade-up">
+      <div class="section-label">Service 01</div>
+      <h2 class="section-title">ACT System <span>건축</span></h2>
+      <p class="section-desc">
+        Advanced Construction Technology — 강관 내부에 고강도 콘크리트를 충전한 강합성구조 시스템입니다.
+        건설신기술 631호로 공사비 절감과 시공 안전성을 동시에 실현합니다.
+      </p>
+      <table class="spec-table">
+        <thead><tr><th>비교 항목</th><th>일반 Steel 구조</th><th>ACT System</th></tr></thead>
+        <tbody>
+          <tr><td>공사비</td><td>100%</td><td class="val">약 78% (22% 절감)</td></tr>
+          <tr><td>기둥 면적</td><td>기준</td><td class="val">40% 이상 감소</td></tr>
+          <tr><td>층고 절감</td><td>기준</td><td class="val">H형강 대비 20% 이상</td></tr>
+          <tr><td>내화 성능</td><td>별도 마감 필요</td><td class="val">내화 인증 획득</td></tr>
+          <tr><td>시공 안전성</td><td>좌굴 위험</td><td class="val">약축 없는 각형 단면</td></tr>
+          <tr><td>적용 현장</td><td>-</td><td class="val">400개 이상 현장</td></tr>
+        </tbody>
+      </table>
+      <a href="index.html#contact" class="btn-primary" style="margin-top:28px;display:inline-flex;">무료 상담 신청 →</a>
+    </div>
+    <div class="service-detail-visual fade-up">
+      <div class="service-visual-box act-visual">
+        🏗️
+        <div class="visual-stat">
+          <div class="visual-stat-num">22%</div>
+          <div class="visual-stat-label">공사비 절감</div>
+        </div>
+        <div class="visual-stat">
+          <div class="visual-stat-num">631호</div>
+          <div class="visual-stat-label">건설신기술</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     ACT System 구성 요소
+     ========================================= -->
+<section class="service-detail">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="text-center fade-up">
+      <h3 class="section-title" style="font-size:28px;">ACT System <span>구성 요소</span></h3>
+    </div>
+    <div class="services-grid" style="margin-top:40px;">
+      <div class="service-card fade-up">
+        <div class="service-card-header" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">
+          <div class="service-icon">🏛️</div>
+          <div class="service-title">ACT Column</div>
+          <div class="service-subtitle">강합성 기둥 시스템</div>
+        </div>
+        <div class="service-card-body">
+          <div class="service-features">
+            <div class="service-feature">냉간성형 단위부재로 제작 — 잔류응력 감소</div>
+            <div class="service-feature">앵커형 리브로 좌굴 내력 향상</div>
+            <div class="service-feature">특수용접 불필요 — 경제성 향상</div>
+            <div class="service-feature">콘크리트 충진성 및 시공성 확보</div>
+          </div>
+        </div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-card-header" style="background:linear-gradient(135deg,#fff8e1,#ffe082)">
+          <div class="service-icon">⚙️</div>
+          <div class="service-title">AU Girder</div>
+          <div class="service-subtitle">강합성 보 시스템</div>
+        </div>
+        <div class="service-card-body">
+          <div class="service-features">
+            <div class="service-feature">박스형 합성보로 층고 20% 이상 절감</div>
+            <div class="service-feature">폐쇄형 단면으로 처짐량 대폭 감소</div>
+            <div class="service-feature">무동바리 작업으로 시공성 향상</div>
+            <div class="service-feature">Deep deck 적용 시 Sub-beam 제거 가능</div>
+          </div>
+        </div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-card-header" style="background:linear-gradient(135deg,#e3f2fd,#90caf9)">
+          <div class="service-icon">🔩</div>
+          <div class="service-title">ACT Down System</div>
+          <div class="service-subtitle">역타공법 솔루션</div>
+        </div>
+        <div class="service-card-body">
+          <div class="service-features">
+            <div class="service-feature">6가지 자체 개발 기술 선택 적용</div>
+            <div class="service-feature">공기 단축 및 공사비 절감 극대화</div>
+            <div class="service-feature">H형강 대비 철골 중량 63% 절감</div>
+            <div class="service-feature">ACT Pile로 엄지말뚝 간격 확대 가능</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     서비스 02: 태양광
+     ========================================= -->
+<section class="service-detail" id="solar">
+  <div class="service-detail-grid reverse">
+    <div class="fade-up">
+      <div class="section-label">Service 02</div>
+      <h2 class="section-title">태양광 <span>발전 시스템</span></h2>
+      <p class="section-desc">
+        설계 단계부터 태양광을 건물과 일체화하여 지붕 하자를 없애고 발전 효율을 극대화합니다.
+        자가소비형·임대형·RPS 등 고객 상황에 맞는 최적의 방식을 제안드립니다.
+      </p>
+      <table class="spec-table">
+        <thead><tr><th>사업 방식</th><th>특징</th><th>투자 회수</th></tr></thead>
+        <tbody>
+          <tr><td>자가소비형</td><td>정부 지원금 활용 + 전기요금 직접 절감</td><td class="val">약 2.2년</td></tr>
+          <tr><td>임대구독형 (PPA)</td><td>초기 투자 없이 발전 수익 창출</td><td class="val">즉시</td></tr>
+          <tr><td>RPS (공급의무화)</td><td>REC 판매 + SMP 수익</td><td class="val">4~5년</td></tr>
+        </tbody>
+      </table>
+      <div class="why-grid" style="grid-template-columns:1fr 1fr;margin-top:24px;gap:16px;">
+        <div class="why-card" style="padding:20px;">
+          <div class="why-icon" style="font-size:28px;">💰</div>
+          <div class="why-title" style="font-size:15px;">1,000kW 월 수익</div>
+          <div class="why-highlight">2,000만원/월</div>
+        </div>
+        <div class="why-card" style="padding:20px;">
+          <div class="why-icon" style="font-size:28px;">📈</div>
+          <div class="why-title" style="font-size:15px;">20년 누적 수익</div>
+          <div class="why-highlight">최대 65억원</div>
+        </div>
+      </div>
+      <a href="index.html#contact" class="btn-primary" style="margin-top:28px;display:inline-flex;">수익 계산 · 상담 신청 →</a>
+    </div>
+    <div class="service-detail-visual fade-up">
+      <div class="service-visual-box solar-visual">
+        ☀️
+        <div class="visual-stat">
+          <div class="visual-stat-num">704MW</div>
+          <div class="visual-stat-label">누적 설치 실적</div>
+        </div>
+        <div class="visual-stat">
+          <div class="visual-stat-num">2.2년</div>
+          <div class="visual-stat-label">평균 투자 회수</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     서비스 03: Genovation
+     ========================================= -->
+<section class="service-detail" id="genovation">
+  <div class="service-detail-grid">
+    <div class="fade-up">
+      <div class="section-label">Service 03</div>
+      <h2 class="section-title">Genovation <span>전기절감</span></h2>
+      <p class="section-desc">
+        2015년부터 1,800개 기업의 전기요금을 절감한 검증된 컨설팅입니다.
+        진단·공사 모두 무료, 절감액 확인 후 수수료를 납부하는 완전한 성공 보수 방식입니다.
+      </p>
+      <div class="process-list">
+        <div class="process-item fade-up">
+          <div class="process-step-num">1</div>
+          <div>
+            <div class="process-item-title">무료 진단 (현장 방문)</div>
+            <div class="process-item-desc">한전 약관 분석 + 전기 사용 패턴 파악 → 절감 가능 금액 산출</div>
+          </div>
+        </div>
+        <div class="process-item fade-up">
+          <div class="process-step-num">2</div>
+          <div>
+            <div class="process-item-title">절감 방안 제시</div>
+            <div class="process-item-desc">기본료 최대 33.3% + 사용요금 최대 30.7% 절감 시나리오 제시</div>
+          </div>
+        </div>
+        <div class="process-item fade-up">
+          <div class="process-step-num">3</div>
+          <div>
+            <div class="process-item-title">무료 공사 진행</div>
+            <div class="process-item-desc">당사 전액 부담으로 공사 진행 — 고객 초기 비용 없음</div>
+          </div>
+        </div>
+        <div class="process-item fade-up">
+          <div class="process-step-num">4</div>
+          <div>
+            <div class="process-item-title">절감 확인 후 수수료</div>
+            <div class="process-item-desc">절감액이 확인된 후, 절감금액의 50% × 60개월 납부</div>
+          </div>
+        </div>
+      </div>
+      <a href="index.html#contact" class="btn-primary" style="margin-top:28px;display:inline-flex;">무료 전기요금 진단 →</a>
+    </div>
+    <div class="service-detail-visual fade-up">
+      <div class="service-visual-box geno-visual">
+        ⚡
+        <div class="visual-stat">
+          <div class="visual-stat-num">1,800개</div>
+          <div class="visual-stat-label">누적 계약 기업</div>
+        </div>
+        <div class="visual-stat">
+          <div class="visual-stat-num">33%</div>
+          <div class="visual-stat-label">기본료 최대 절감</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--primary);padding:80px 24px;text-align:center;">
+  <div style="max-width:640px;margin:0 auto;">
+    <h2 style="font-size:clamp(26px,4vw,38px);font-weight:900;color:white;margin-bottom:16px;">
+      지금 바로 무료 상담을 받아보세요
+    </h2>
+    <p style="color:rgba(255,255,255,0.8);font-size:17px;margin-bottom:36px;line-height:1.7;">
+      전문가가 현장 방문 후 정확한 수익 분석과 맞춤 솔루션을 제안드립니다.
+    </p>
+    <a href="index.html#contact" class="btn-primary" style="font-size:18px;padding:18px 48px;">
+      💬 무료 상담 신청하기
+    </a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-bottom" style="padding-top:0;border:none;">
+      <span>© 2026 GW코리아. All rights reserved. | 경남 김해시 분성로 557번길 3 | Tel. 055-322-2999</span>
+      <a href="index.html">홈으로</a>
+    </div>
+  </div>
+</footer>
+
+<!-- AI 상담사 채팅 창 -->
+<div id="gw-chat-window" class="gw-chat-window" style="display:none" role="dialog" aria-label="GW AI 상담사">
+  <div class="gw-chat-header">
+    <div class="gw-chat-header-info">
+      <div class="gw-chat-avatar">🤖</div>
+      <div>
+        <div class="gw-chat-name" id="gw-chat-name">GW AI 상담사</div>
+        <div class="gw-chat-status" id="gw-chat-status">● 온라인</div>
+      </div>
+    </div>
+    <button class="gw-chat-close" id="gw-chat-close" aria-label="닫기">✕</button>
+  </div>
+  <div class="gw-chat-messages" id="gw-chat-messages" role="log" aria-live="polite"></div>
+  <div class="gw-chat-input-area">
+    <input type="text" id="gw-chat-input" class="gw-chat-input" placeholder="메시지를 입력하세요..." autocomplete="off" maxlength="200">
+    <button id="gw-chat-send" class="gw-chat-send" aria-label="전송">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </button>
+  </div>
+</div>
+
+<div class="floating-btns">
+  <button class="float-btn float-ai" id="gw-chat-toggle" title="AI 상담사" aria-label="AI 상담사 열기">
+    <span class="gw-chat-icon-open">🤖</span>
+    <span class="gw-chat-icon-close" style="display:none">✕</span>
+    <span class="gw-chat-badge" id="gw-chat-badge" style="display:none">1</span>
+  </button>
+  <button class="float-btn float-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+</div>
+<div class="toast" id="toast"></div>
+<script src="js/main.js"></script>
+<script src="js/chat.js"></script>
+</body>
+</html>

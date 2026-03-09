@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" width="280" height="64">
+  <defs>
+    <linearGradient id="gGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f7b733;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#e8920a;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="wGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2ebd6b;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#1a6b3a;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- G 글자 (주황/골드) -->
+  <text x="2" y="52"
+    font-family="Arial Black, Arial, sans-serif"
+    font-weight="900"
+    font-size="52"
+    fill="url(#gGrad)"
+    letter-spacing="-2">G</text>
+
+  <!-- W 글자 (초록) — G와 약간 겹침 -->
+  <text x="30" y="52"
+    font-family="Arial Black, Arial, sans-serif"
+    font-weight="900"
+    font-size="52"
+    fill="url(#wGrad)"
+    letter-spacing="-2">W</text>
+
+  <!-- 구분선 -->
+  <rect x="90" y="10" width="1.5" height="44" rx="1" fill="#d1d5db"/>
+
+  <!-- (주)지더블유 -->
+  <text x="100" y="34"
+    font-family="'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif"
+    font-weight="700"
+    font-size="18"
+    fill="#1a1a1a"
+    letter-spacing="0.5">(주)지더블유</text>
+
+  <!-- GW CO.,LTD. -->
+  <text x="101" y="52"
+    font-family="Arial, sans-serif"
+    font-weight="600"
+    font-size="12"
+    fill="#6b7280"
+    letter-spacing="1">GW CO.,LTD.</text>
+</svg>
