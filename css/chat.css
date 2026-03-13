@@ -283,3 +283,68 @@
     right: 16px;
   }
 }
+
+/* #72: 응답 만족도 피드백 */
+.gw-feedback {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+.gw-feedback-btn {
+  background: transparent;
+  border: 1px solid var(--border-hard, #e5e7eb);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  line-height: 1;
+}
+.gw-feedback-btn:hover {
+  background: var(--gray-light, #f3f4f6);
+  transform: scale(1.1);
+}
+.gw-feedback-btn.selected {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* #65: 상담원 연결 버튼 */
+.gw-connect-agent {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 6px 14px;
+  background: var(--secondary, #f5a623);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.gw-connect-agent:hover {
+  background: #d4881a;
+}
+
+/* #71: 챗봇 최소화 상태 */
+.gw-chat-minimized {
+  height: 52px;
+  max-height: 52px;
+  overflow: hidden;
+}
+.gw-chat-minimized .gw-chat-messages,
+.gw-chat-minimized .gw-chat-input-area {
+  display: none;
+}
+
+/* #27: reduced-motion 챗봇 */
+@media (prefers-reduced-motion: reduce) {
+  .gw-chat-window { animation: none; }
+  .gw-anim { animation: none; }
+  .gw-dot { animation: none; }
+  .gw-chat-badge { animation: none; }
+}

@@ -277,4 +277,13 @@
   .slide-btns { flex-direction: column; align-items: center; }
   .btn-primary, .btn-outline-white { width: 100%; max-width: 280px; justify-content: center; }
   .hero-stat { font-size: 18px; padding: 6px 12px; }
+  .slider-pause { bottom: 150px; right: 16px; width: 36px; height: 36px; font-size: 14px; }
+}
+
+/* #27: reduced-motion 슬라이더 */
+@media (prefers-reduced-motion: reduce) {
+  .slide { transition: opacity 0.01ms ease; transform: none !important; }
+  .slide.active { transform: none; }
+  .slide.prev-slide { transform: none; }
+  .slide-badge::before { animation: none; }
 }

@@ -6,11 +6,16 @@
   <meta name="description" content="공장·창고 지붕을 발전소로. 태양광 1,000kW 기준 월 수익 2,000만원·투자회수 2.2년. ACT 건축 공사비 22% 절감. 전기요금 최대 33% 절감. 경기도 광명 (주)지더블유 무료 상담.">
   <title>(주)지더블유 GW CO.,LTD. - 태양광·ACT건축·전기절감 통합 솔루션 | 경기도 광명</title>
 
+  <!-- CSP 보안 헤더 (#82) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com;">
+
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="(주)지더블유 - 공장 지붕을 발전소로, 월 수익 2,000만원">
   <meta property="og:description" content="태양광 설치 1,000kW → 월 2,000만원 수익·2.2년 투자회수. ACT 건축 공사비 22% 절감. 전기요금 최대 33% 무료 절감. 지금 무료 상담 신청하세요.">
-  <meta property="og:image" content="images/kdf_p1_0.jpeg">
+  <meta property="og:image" content="https://gwkorea.co.kr/images/og-share.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://gwkorea.co.kr">
   <meta property="og:site_name" content="(주)지더블유 GW CO.,LTD.">
   <meta property="og:locale" content="ko_KR">
@@ -19,17 +24,22 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="(주)지더블유 - 공장 지붕을 발전소로">
   <meta name="twitter:description" content="태양광 월 수익 2,000만원·전기요금 33% 절감·ACT 건축 22% 절감. 경기도 광명 무료 상담.">
-  <meta name="twitter:image" content="images/kdf_p1_0.jpeg">
+  <meta name="twitter:image" content="https://gwkorea.co.kr/images/og-share.jpg">
 
-  <!-- 검색엔진 -->
+  <!-- 검색엔진 (#36 hreflang) -->
   <meta name="keywords" content="태양광 설치,공장 태양광,전기요금 절감,ACT 건축,솔라루프,PPA,RE100,경기도 태양광,광명 태양광,전기절감 컨설팅,성남 태양광">
   <meta name="author" content="(주)지더블유 GW CO.,LTD.">
   <link rel="canonical" href="https://gwkorea.co.kr">
+  <link rel="alternate" hreflang="ko" href="https://gwkorea.co.kr/">
+  <link rel="alternate" hreflang="en" href="https://gwkorea.co.kr/?lang=en">
 
-  <!-- 파비콘 -->
+  <!-- 파비콘 & PWA (#73) -->
   <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/logo.svg">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1a6b3a">
 
-  <!-- Schema.org 구조화 데이터 -->
+  <!-- Schema.org 구조화 데이터 (#37 확장) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -39,6 +49,10 @@
     "url": "https://gwkorea.co.kr",
     "telephone": "02-6914-6540",
     "faxNumber": "02-6914-6541",
+    "email": "kygug09@naver.com",
+    "logo": "https://gwkorea.co.kr/images/logo.svg",
+    "image": "https://gwkorea.co.kr/images/kdf_p1_0.jpeg",
+    "priceRange": "무료 상담",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "일직로 43, GIDC C동 2601호",
@@ -47,7 +61,17 @@
       "postalCode": "14353",
       "addressCountry": "KR"
     },
-    "openingHours": "Mo-Fr 09:00-18:00",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "37.4236",
+      "longitude": "126.8850"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "GW 통합 에너지 솔루션",
@@ -56,7 +80,46 @@
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "ACT System 건축", "description": "건설신기술 631호, Steel 대비 22% 공사비 절감"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Genovation 전기절감", "description": "한전 약관 분석, 기본료 33%·사용요금 30% 절감, 무료 컨설팅"}}
       ]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "1800"
     }
+  }
+  </script>
+
+  <!-- FAQ 구조화 데이터 (#37) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "태양광 발전 시스템 설치 비용은 얼마인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "kW당 약 80~120만원이며, PPA 방식은 초기비용 0원입니다. 1,000kW 기준 월 수익 약 2,000만원, 투자 회수 약 2.2년입니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Genovation 전기절감 컨설팅은 정말 무료인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "네, 진단·공사 모두 완전 무료입니다. 절감 금액이 확인된 후에만 절감액의 50%를 60개월 동안 수수료로 납부하는 성공 보수 방식입니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "ACT System 건축은 기존 공법과 어떤 차이가 있나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "건설신기술 631호로 인증된 강합성구조 시스템으로, Steel 구조 대비 공사비 22% 절감, 기둥 면적 40% 감소, 층고 20% 확보가 가능합니다."
+        }
+      }
+    ]
   }
   </script>
 
@@ -68,11 +131,35 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/slider.css">
   <link rel="stylesheet" href="css/chat.css">
+
+  <!-- Google Analytics (#96, #97) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 </head>
 <body>
 
+<!-- Skip Navigation (#17) -->
+<a href="#main-content" class="skip-link">본문 바로가기</a>
+
+<!-- 스크롤 진행 표시바 (#46) -->
+<div class="scroll-progress" id="scrollProgress" role="progressbar" aria-label="페이지 읽기 진행률"></div>
+
+<!-- 쿠키 동의 배너 (#87) -->
+<div class="cookie-banner" id="cookieBanner" role="alert" style="display:none">
+  <p>이 웹사이트는 최적의 서비스 제공을 위해 쿠키를 사용합니다. 계속 이용하시면 쿠키 사용에 동의하는 것으로 간주됩니다.</p>
+  <div class="cookie-actions">
+    <button class="cookie-btn cookie-accept" id="cookieAccept">동의</button>
+    <a href="privacy.html" class="cookie-btn cookie-more">자세히 보기</a>
+  </div>
+</div>
+
 <!-- ===================== 네비게이션 ===================== -->
-<nav class="navbar" id="navbar">
+<nav class="navbar" id="navbar" role="navigation" aria-label="메인 네비게이션">
   <div class="nav-container">
     <a href="index.html" class="nav-logo">
       <img src="images/logo.svg" alt="(주)지더블유 로고" class="nav-logo-img">
@@ -99,7 +186,8 @@
 </nav>
 
 <!-- ===================== 히어로 슬라이더 ===================== -->
-<section class="hero-slider" id="home">
+<main id="main-content">
+<section class="hero-slider" id="home" aria-label="메인 배너 슬라이더">
   <!-- 슬라이드 1 -->
   <div class="slide active" style="background-image:url('images/kdf_p1_0.jpeg')">
     <div class="slide-overlay"></div>
@@ -170,9 +258,10 @@
     </div>
   </div>
 
-  <!-- 슬라이더 컨트롤 -->
+  <!-- 슬라이더 컨트롤 (#26 일시정지 버튼) -->
   <button class="slider-arrow slider-prev" aria-label="이전 슬라이드">&#10094;</button>
   <button class="slider-arrow slider-next" aria-label="다음 슬라이드">&#10095;</button>
+  <button class="slider-pause" id="sliderPause" aria-label="슬라이드 일시정지" aria-pressed="false">⏸</button>
   <div class="slider-dots" id="sliderDots"></div>
 
   <!-- 하단 실적 바 -->
@@ -667,13 +756,14 @@
       <div class="section-label" data-i18n="label.compare">Why GW코리아</div>
       <h2 class="section-title" data-i18n="title.compare">일반 건물 vs <span>GW 통합 솔루션</span></h2>
     </div>
-    <div class="compare-table fade-up">
+    <div class="compare-table fade-up" role="region" aria-label="일반 건물 vs GW 통합 솔루션 비교">
       <table>
+        <caption class="sr-only">일반 건물과 GW 통합 솔루션의 7가지 항목 비교표</caption>
         <thead>
           <tr>
-            <th class="th-label" data-i18n="cmp.h1">구분</th>
-            <th class="th-general" data-i18n="cmp.h2">일반 건물</th>
-            <th class="th-gw" data-i18n="cmp.h3">GW 통합 솔루션</th>
+            <th scope="col" class="th-label" data-i18n="cmp.h1">구분</th>
+            <th scope="col" class="th-general" data-i18n="cmp.h2">일반 건물</th>
+            <th scope="col" class="th-gw" data-i18n="cmp.h3">GW 통합 솔루션</th>
           </tr>
         </thead>
         <tbody>
@@ -1142,14 +1232,19 @@
       <div class="contact-form fade-up">
         <h3 data-i18n="form.title">📋 무료 상담 신청</h3>
         <form id="contactForm" novalidate>
-          <div class="form-row">
-            <div class="form-field"><label data-i18n="form.name">성함 *</label><input type="text" id="fname" placeholder="홍길동" required></div>
-            <div class="form-field"><label data-i18n="form.phone">연락처 *</label><input type="tel" id="fphone" placeholder="010-0000-0000" required></div>
+          <!-- 스팸 방지 허니팟 (#83) -->
+          <div style="position:absolute;left:-9999px;" aria-hidden="true">
+            <label for="fwebsite">웹사이트 (입력하지 마세요)</label>
+            <input type="text" id="fwebsite" name="website" tabindex="-1" autocomplete="off">
           </div>
-          <div class="form-field"><label data-i18n="form.company">회사명</label><input type="text" id="fcompany" placeholder="(주)GW코리아"></div>
+          <div class="form-row">
+            <div class="form-field"><label for="fname" data-i18n="form.name">성함 *</label><input type="text" id="fname" placeholder="홍길동" required autocomplete="name" aria-required="true"></div>
+            <div class="form-field"><label for="fphone" data-i18n="form.phone">연락처 *</label><input type="tel" id="fphone" placeholder="010-0000-0000" required autocomplete="tel" aria-required="true" inputmode="tel"></div>
+          </div>
+          <div class="form-field"><label for="fcompany" data-i18n="form.company">회사명</label><input type="text" id="fcompany" placeholder="(주)GW코리아" autocomplete="organization"></div>
           <div class="form-field">
-            <label data-i18n="form.service">관심 서비스 *</label>
-            <select id="fservice" required>
+            <label for="fservice" data-i18n="form.service">관심 서비스 *</label>
+            <select id="fservice" required aria-required="true">
               <option value="">선택해주세요</option>
               <option value="solar">태양광 발전 시스템</option>
               <option value="geno">Genovation 전기절감</option>
@@ -1159,11 +1254,11 @@
           </div>
           <div class="form-row">
             <div class="form-field">
-              <label data-i18n="form.location">부지 위치</label>
+              <label for="flocation" data-i18n="form.location">부지 위치</label>
               <input type="text" id="flocation" placeholder="예: 경남 김해시">
             </div>
             <div class="form-field">
-              <label data-i18n="form.bldtype">건물 유형</label>
+              <label for="fbldtype" data-i18n="form.bldtype">건물 유형</label>
               <select id="fbldtype">
                 <option value="">선택 (선택사항)</option>
                 <option value="factory">공장 / 창고</option>
@@ -1177,15 +1272,20 @@
           </div>
           <div class="form-row">
             <div class="form-field">
-              <label data-i18n="form.area">지붕(부지) 면적</label>
+              <label for="farea" data-i18n="form.area">지붕(부지) 면적</label>
               <input type="text" id="farea" placeholder="예: 3,000㎡ / 1,000평">
             </div>
             <div class="form-field">
-              <label data-i18n="form.bill">월 전기요금</label>
-              <input type="text" id="fbill" placeholder="예: 500만원">
+              <label for="fbill" data-i18n="form.bill">월 전기요금</label>
+              <input type="text" id="fbill" placeholder="예: 500만원" inputmode="numeric">
             </div>
           </div>
-          <div class="form-field"><label data-i18n="form.message">문의 내용</label><textarea id="fmessage" placeholder="추가로 알려주실 내용이 있으면 자유롭게 적어주세요."></textarea></div>
+          <div class="form-field"><label for="fmessage" data-i18n="form.message">문의 내용</label><textarea id="fmessage" placeholder="추가로 알려주실 내용이 있으면 자유롭게 적어주세요."></textarea></div>
+          <!-- 개인정보 동의 (#86) -->
+          <label class="privacy-agree">
+            <input type="checkbox" id="fprivacy" required aria-required="true">
+            <span><a href="privacy.html" target="_blank">개인정보처리방침</a>에 동의합니다. *</span>
+          </label>
           <button type="submit" class="form-submit" data-i18n="form.submit">🚀 무료 상담 신청하기</button>
         </form>
       </div>
@@ -1193,8 +1293,9 @@
   </div>
 </section>
 
+</main>
 <!-- ===================== 푸터 ===================== -->
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
@@ -1228,7 +1329,7 @@
     </div>
     <div class="footer-bottom">
       <span data-i18n="footer.copy">© 2026 GW코리아. All rights reserved.</span>
-      <span><a href="#">개인정보처리방침</a> &nbsp;|&nbsp; <a href="#">이용약관</a></span>
+      <span><a href="privacy.html">개인정보처리방침</a> &nbsp;|&nbsp; <a href="privacy.html">이용약관</a></span>
     </div>
   </div>
 </footer>
@@ -1260,12 +1361,44 @@
     <span class="gw-chat-icon-close" style="display:none">✕</span>
     <span class="gw-chat-badge" id="gw-chat-badge" style="display:none">1</span>
   </button>
-  <button class="float-btn float-kakao" onclick="alert('카카오톡: @GW코리아')" title="카카오톡">💬</button>
-  <button class="float-btn float-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+  <a href="https://pf.kakao.com/_GWkorea" target="_blank" rel="noopener" class="float-btn float-kakao" title="카카오톡 상담" aria-label="카카오톡 상담">💬</a>
+  <button class="float-btn float-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로" aria-label="페이지 맨 위로 이동">↑</button>
 </div>
-<div class="toast" id="toast"></div>
+
+<!-- 모바일 고정 CTA (#58) -->
+<div class="mobile-cta-bar" id="mobileCta">
+  <a href="#contact" class="mobile-cta-btn">무료 상담 신청</a>
+  <a href="tel:02-6914-6540" class="mobile-cta-call" aria-label="전화 걸기">📞</a>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="js/main.js"></script>
-<script src="js/chat.js"></script>
+<script src="js/chat.js" defer></script>
+
+<!-- Service Worker 등록 (#12, #73) -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
+</script>
+
+<!-- GA 전환 추적 (#97) -->
+<script>
+document.getElementById('contactForm')?.addEventListener('submit', function() {
+  if (typeof gtag === 'function') {
+    gtag('event', 'form_submit', { event_category: 'consultation', event_label: 'contact_form' });
+  }
+});
+document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
+  el.addEventListener('click', function() {
+    if (typeof gtag === 'function') {
+      gtag('event', 'click', { event_category: 'contact', event_label: 'phone_call' });
+    }
+  });
+});
+</script>
 </body>
 </html>

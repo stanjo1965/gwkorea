@@ -425,7 +425,28 @@ const chatState = {
   isOpen: false,
   messages: [],
   typingTimer: null,
+  history: [], // #63: 대화 이력
 };
+
+// #63: 대화 이력 저장/복원
+function saveChatHistory() {
+  try {
+    const maxHistory = 50;
+    const trimmed = chatState.history.slice(-maxHistory);
+    localStorage.setItem('gw-chat-history', JSON.stringify(trimmed));
+  } catch (e) { /* quota exceeded */ }
+}
+
+function loadChatHistory() {
+  try {
+    const saved = localStorage.getItem('gw-chat-history');
+    if (saved) {
+      chatState.history = JSON.parse(saved);
+      return chatState.history;
+    }
+  } catch (e) { /* parse error */ }
+  return [];
+}
 
 
 // =========================================
@@ -449,8 +470,29 @@ function appendMessage(role, text, skipAnim) {
   bubble.className = 'gw-chat-bubble';
   bubble.innerHTML = formatMessage(text);
   wrap.appendChild(bubble);
+
+  // #72: 봇 응답에 피드백 버튼 추가
+  if (role === 'bot' && !skipAnim) {
+    const feedback = document.createElement('div');
+    feedback.className = 'gw-feedback';
+    feedback.innerHTML = '<button class="gw-feedback-btn" data-vote="up" aria-label="도움이 됐어요">👍</button><button class="gw-feedback-btn" data-vote="down" aria-label="개선이 필요해요">👎</button>';
+    feedback.querySelectorAll('.gw-feedback-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        feedback.querySelectorAll('.gw-feedback-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        // 피드백 기록
+        console.info('[Chat Feedback]', btn.dataset.vote, text.substring(0, 50));
+      });
+    });
+    wrap.appendChild(feedback);
+  }
+
   container.appendChild(wrap);
   container.scrollTop = container.scrollHeight;
+
+  // #63: 이력 저장
+  chatState.history.push({ role, text, time: Date.now() });
+  saveChatHistory();
 }
 
 function appendQuickReplies(replies) {
@@ -496,7 +538,7 @@ function removeTyping() {
 // 응답 로직
 // =========================================
 function getLang() {
-  return document.documentElement.lang || 'ko';
+  return document.documentElement.getAttribute('data-lang') || document.documentElement.lang || 'ko';
 }
 
 function getKB() {
@@ -639,6 +681,19 @@ function handleUserInput(text) {
       removeTyping();
       const kb = getKB();
       appendMessage('bot', kb.fallback);
+
+      // #65: 상담원 연결 버튼 추가
+      const container = document.getElementById('gw-chat-messages');
+      if (container) {
+        const agentBtn = document.createElement('button');
+        agentBtn.className = 'gw-connect-agent';
+        agentBtn.innerHTML = '📞 ' + (getLang() === 'ko' ? '상담원 직접 연결' : 'Connect to Agent');
+        agentBtn.addEventListener('click', () => {
+          window.location.href = 'tel:0269146540';
+        });
+        container.appendChild(agentBtn);
+      }
+
       setTimeout(() => appendQuickReplies(kb.fallbackQuick), 100);
     }
   }, delay);
@@ -662,18 +717,62 @@ function openChat() {
 
   const container = document.getElementById('gw-chat-messages');
   if (container && container.children.length === 0) {
-    // 첫 오픈: 인사말
     updatePlaceholder();
-    setTimeout(() => {
+
+    // #63: 이전 대화 이력 복원
+    const history = loadChatHistory();
+    if (history.length > 0) {
+      history.forEach(msg => {
+        appendMessage(msg.role, msg.text, true); // skipAnim=true
+      });
       const kb = getKB();
-      appendMessage('bot', kb.greeting[0]);
+      const resumeMsg = getLang() === 'ko'
+        ? '이전 대화를 불러왔습니다. 계속 질문해 주세요!'
+        : 'Previous conversation loaded. Feel free to continue!';
+      appendMessage('bot', resumeMsg);
       setTimeout(() => appendQuickReplies(kb.quickReplies), 300);
-    }, 300);
+    } else {
+      // 첫 오픈: 인사말 + #70 FAQ 자동 추천
+      setTimeout(() => {
+        const kb = getKB();
+        appendMessage('bot', kb.greeting[0]);
+        setTimeout(() => appendQuickReplies(kb.quickReplies), 300);
+      }, 300);
+    }
   }
+
+  // #30: 포커스 트랩 - 챗봇 내부에 포커스 유지
+  const chatWin = document.getElementById('gw-chat-window');
+  if (chatWin) {
+    chatWin.addEventListener('keydown', trapFocus);
+  }
+
   setTimeout(() => {
     const inp = document.getElementById('gw-chat-input');
     inp?.focus();
   }, 400);
+}
+
+// #30: 포커스 트랩 함수
+function trapFocus(e) {
+  if (e.key !== 'Tab') return;
+  const chatWin = document.getElementById('gw-chat-window');
+  if (!chatWin) return;
+  const focusable = chatWin.querySelectorAll('button, input, [tabindex]:not([tabindex="-1"])');
+  if (focusable.length === 0) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (e.shiftKey) {
+    if (document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    }
+  } else {
+    if (document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
 }
 
 function closeChat() {
@@ -685,6 +784,12 @@ function closeChat() {
   win.style.display = 'none';
   if (iconOpen) iconOpen.style.display = '';
   if (iconClose) iconClose.style.display = 'none';
+
+  // #30: 포커스 트랩 해제
+  win.removeEventListener('keydown', trapFocus);
+
+  // 챗봇 토글 버튼으로 포커스 복귀
+  document.getElementById('gw-chat-toggle')?.focus();
 }
 
 // =========================================
@@ -711,7 +816,14 @@ function initChat() {
 
   // 언어 변경 시 placeholder 업데이트
   const observer = new MutationObserver(() => updatePlaceholder());
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['lang', 'data-lang'] });
+
+  // ESC로 챗봇 닫기
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && chatState.isOpen) {
+      closeChat();
+    }
+  });
 
   // 뱃지 노출 (3초 후)
   setTimeout(() => {

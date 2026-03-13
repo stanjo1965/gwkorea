@@ -583,6 +583,7 @@ function initLang() {
 
 function applyLang(lang) {
   document.documentElement.setAttribute('data-lang', lang);
+  document.documentElement.lang = lang === 'en' ? 'en' : 'ko'; // #28
   localStorage.setItem('gw-lang', lang);
   const dict = I18N[lang];
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -846,7 +847,16 @@ function initSlider() {
 
   // 마우스 오버 시 정지
   slider.addEventListener('mouseenter', stopAuto);
-  slider.addEventListener('mouseleave', startAuto);
+  slider.addEventListener('mouseleave', () => {
+    if (!sliderPaused) startAuto();
+  });
+
+  // #26: 일시정지 이벤트 처리
+  let sliderPaused = false;
+  document.addEventListener('slider-toggle-pause', (e) => {
+    sliderPaused = e.detail.paused;
+    sliderPaused ? stopAuto() : startAuto();
+  });
 
   startAuto();
 }
@@ -865,10 +875,17 @@ function initPortfolioFilter() {
       btn.classList.add('active');
 
       const filter = btn.dataset.filter;
+      let visibleCount = 0;
       cards.forEach(card => {
         const show = filter === 'all' || card.dataset.category === filter;
         card.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
       });
+      // #22: 필터 결과 접근성 알림
+      const grid = document.querySelector('.portfolio-grid');
+      if (grid) {
+        grid.setAttribute('aria-label', visibleCount + '개 프로젝트 표시 중');
+      }
     });
   });
 }
@@ -893,15 +910,44 @@ function initContactForm() {
     const bill     = document.getElementById('fbill')?.value.trim() || '';
     const message  = document.getElementById('fmessage')?.value.trim() || '';
 
+    // #83: 허니팟 스팸 체크
+    if (isSpamSubmission()) { form.reset(); return; }
+
+    // #85: Rate limiting
+    if (isRateLimited()) {
+      showToast('잠시 후 다시 시도해주세요.');
+      return;
+    }
+
     if (!name) { showToast('성함을 입력해주세요.'); return; }
-    if (!phone || !/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/.test(phone)) {
+    if (!phone || !/^[0-9]{2,3}-?[0-9]{3,4}-?[0-9]{4}$/.test(phone)) {
       showToast('연락처를 올바르게 입력해주세요. (예: 010-1234-5678)');
       return;
     }
     if (!service) { showToast('관심 서비스를 선택해주세요.'); return; }
 
+    // #86: 개인정보 동의 확인
+    const privacyCheck = document.getElementById('fprivacy');
+    if (privacyCheck && !privacyCheck.checked) {
+      showToast('개인정보처리방침에 동의해주세요.');
+      return;
+    }
+
+    // #84: 입력값 sanitize
+    const safeData = {
+      name: sanitizeInput(name),
+      phone: sanitizeInput(phone),
+      company: sanitizeInput(company),
+      service,
+      location: sanitizeInput(location),
+      bldtype,
+      area: sanitizeInput(area),
+      bill: sanitizeInput(bill),
+      message: sanitizeInput(message),
+    };
+
     // 수집 데이터 (실제 서비스에서는 서버로 전송)
-    console.info('[GW 상담신청]', { name, phone, company, service, location, bldtype, area, bill, message });
+    console.info('[GW 상담신청]', safeData);
     showToast('✅ 상담 신청이 완료되었습니다! 1영업일 내 연락드리겠습니다.');
     form.reset();
   });
@@ -964,19 +1010,150 @@ function initTheme() {
 }
 
 // =========================================
+// #46: 스크롤 진행 표시바
+// =========================================
+function initScrollProgress() {
+  const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+  }, { passive: true });
+}
+
+// =========================================
+// #47: 네비게이션 활성 상태 (스크롤 기반)
+// =========================================
+function initNavActiveState() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+  if (!sections.length || !navLinks.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('nav-active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '-70px 0px -50% 0px' });
+
+  sections.forEach(sec => observer.observe(sec));
+}
+
+// =========================================
+// #28: 언어 전환 시 html lang 속성 변경
+// =========================================
+function updateHtmlLang(lang) {
+  document.documentElement.lang = lang === 'en' ? 'en' : 'ko';
+}
+
+// =========================================
+// #87: 쿠키 동의 배너
+// =========================================
+function initCookieBanner() {
+  const banner = document.getElementById('cookieBanner');
+  const acceptBtn = document.getElementById('cookieAccept');
+  if (!banner || !acceptBtn) return;
+
+  if (!localStorage.getItem('gw-cookie-consent')) {
+    banner.style.display = 'flex';
+  }
+
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem('gw-cookie-consent', 'true');
+    banner.style.display = 'none';
+  });
+}
+
+// =========================================
+// #26: 슬라이더 일시정지
+// =========================================
+function initSliderPause() {
+  const pauseBtn = document.getElementById('sliderPause');
+  if (!pauseBtn) return;
+  // 슬라이더의 일시정지는 initSlider에서 처리하되,
+  // 버튼 클릭 이벤트를 여기서 연결
+  pauseBtn.addEventListener('click', () => {
+    const isPaused = pauseBtn.getAttribute('aria-pressed') === 'true';
+    pauseBtn.setAttribute('aria-pressed', String(!isPaused));
+    pauseBtn.textContent = isPaused ? '⏸' : '▶';
+    // 전역 이벤트로 알림
+    document.dispatchEvent(new CustomEvent('slider-toggle-pause', { detail: { paused: !isPaused } }));
+  });
+}
+
+// =========================================
+// #83: 폼 스팸 방지 (허니팟 확인)
+// =========================================
+function isSpamSubmission() {
+  const honeypot = document.getElementById('fwebsite');
+  return honeypot && honeypot.value.length > 0;
+}
+
+// =========================================
+// #84: 입력값 Sanitize
+// =========================================
+function sanitizeInput(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// =========================================
+// #85: Rate Limiting (폼)
+// =========================================
+const formSubmitTimes = [];
+function isRateLimited() {
+  const now = Date.now();
+  formSubmitTimes.push(now);
+  // 최근 1분 내 3회 이상이면 제한
+  const recentSubmits = formSubmitTimes.filter(t => now - t < 60000);
+  return recentSubmits.length > 3;
+}
+
+// =========================================
+// #74: 햄버거 애니메이션 토글
+// =========================================
+function initHamburgerAnimation() {
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  if (!hamburger || !navMenu) return;
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+  });
+  // 메뉴 링크 클릭 시 닫기
+  navMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+    });
+  });
+}
+
+// =========================================
 // 초기화
 // =========================================
 function init() {
   initTheme();
   initLang();
   initNavbar();
+  initHamburgerAnimation();
   initSlider();
+  initSliderPause();
   initScrollAnimation();
   initCountUp();
   initSimulator();
   initPortfolioFilter();
   initContactForm();
   initSmoothScroll();
+  initScrollProgress();
+  initNavActiveState();
+  initCookieBanner();
 }
 
 if (document.readyState === 'loading') {
