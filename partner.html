@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="(주)지더블유 태양광 구축 파트너 모집 - 월급 외 두 번째 수입, 은퇴 후 새로운 커리어. 경험 없어도 올인원 지원. 지금 도전하세요.">
+  <title>파트너 모집 | (주)지더블유 - 인생 2막, 새로운 수익의 기회</title>
+  <link rel="canonical" href="https://gwkorea.co.kr/partner.html">
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* 파트너 모집 페이지 전용 스타일 */
+    .partner-hero {
+      background: linear-gradient(135deg, #0a2e1a 0%, #1a6b3a 60%, #2d9e57 100%);
+      padding: 160px 24px 80px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .partner-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .partner-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,166,35,0.2);
+      border: 1.5px solid rgba(245,166,35,0.5);
+      color: #f5a623;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 8px 22px;
+      border-radius: 30px;
+      margin-bottom: 24px;
+    }
+    .partner-hero h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 900;
+      line-height: 1.3;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .partner-hero h1 em {
+      font-style: normal;
+      color: #f5a623;
+    }
+    .partner-hero p {
+      font-size: clamp(16px, 2vw, 20px);
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* 섹션 공통 */
+    .partner-section {
+      padding: 80px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .partner-section-alt {
+      background: var(--bg-2);
+    }
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(26,107,58,0.1);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-2);
+      line-height: 1.7;
+      max-width: 700px;
+      margin-bottom: 48px;
+    }
+
+    /* 기회 카드 */
+    .opp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .opp-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 32px 28px;
+      border: 1px solid var(--border-hard, #e5e7eb);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .opp-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .opp-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, rgba(26,107,58,0.1), rgba(45,158,87,0.1));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+    .opp-card h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .opp-card p {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+    .opp-highlight {
+      display: inline-block;
+      background: rgba(245,166,35,0.15);
+      color: #d4881a;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    /* 지원 체계 */
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .support-item {
+      text-align: center;
+      padding: 28px 16px;
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid var(--border-hard, #e5e7eb);
+    }
+    .support-item .s-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #1a6b3a, #2d9e57);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 14px;
+    }
+    .support-item h4 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .support-item p {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    /* 올인원 리스트 */
+    .allinone-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .allinone-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border-hard, #e5e7eb);
+      font-size: 15px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+    .allinone-list li:last-child { border-bottom: none; }
+    .allinone-list .check {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: rgba(26,107,58,0.1);
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    /* 모집 대상 테이블 */
+    .target-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 32px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-hard, #e5e7eb);
+    }
+    .target-table th {
+      background: linear-gradient(135deg, #1a6b3a, #2d9e57);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 14px 18px;
+      text-align: left;
+    }
+    .target-table td {
+      padding: 16px 18px;
+      font-size: 14px;
+      color: var(--text-2);
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-hard, #e5e7eb);
+      line-height: 1.6;
+    }
+    .target-table tr:last-child td { border-bottom: none; }
+    .target-table .label {
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .target-table .tag {
+      display: inline-block;
+      background: rgba(26,107,58,0.1);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    /* CTA 섹션 */
+    .partner-cta {
+      background: linear-gradient(135deg, #0a2e1a 0%, #1a6b3a 60%, #2d9e57 100%);
+      padding: 80px 24px;
+      text-align: center;
+      color: #fff;
+    }
+    .partner-cta h2 {
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 900;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    .partner-cta p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-buttons .btn-primary {
+      font-size: 17px;
+      padding: 16px 36px;
+    }
+    .cta-buttons .btn-outline-white {
+      font-size: 17px;
+      padding: 16px 36px;
+    }
+
+    /* 반응형 */
+    @media (max-width: 768px) {
+      .opp-grid { grid-template-columns: 1fr; }
+      .support-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .target-table { font-size: 13px; }
+      .target-table th, .target-table td { padding: 12px 14px; }
+    }
+    @media (max-width: 480px) {
+      .support-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar" role="navigation" aria-label="메인 네비게이션">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.svg" alt="(주)지더블유 로고" class="nav-logo-img">
+    </a>
+    <div class="nav-menu" id="navMenu">
+      <a href="index.html#about">회사소개</a>
+      <a href="services.html">서비스</a>
+      <a href="index.html#portfolio">시공사례</a>
+      <a href="partner.html" class="active">파트너 모집</a>
+      <a href="index.html#contact" class="nav-cta">무료 상담 신청</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="다크 모드 전환">
+      <span class="theme-toggle-icon theme-icon-sun">☀️</span>
+      <span class="theme-toggle-icon theme-icon-moon">🌙</span>
+    </button>
+    <div class="hamburger" id="hamburger" role="button" aria-label="메뉴"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- 히어로 -->
+<section class="partner-hero">
+  <div class="partner-hero-badge">🌞 태양광 구축 파트너 모집</div>
+  <h1>'월급 외 <em>두 번째 수입</em>이<br>필요하신가요?'</h1>
+  <p>은퇴 후의 사회적 연결과 추가 수입 고민을 해결하는<br>새로운 커리어 대안입니다.</p>
+</section>
+
+<!-- 섹션 1: 중장년의 노하우가 곧 수익이 되는 기회 -->
+<section class="partner-section">
+  <div class="section-badge">💡 왜 지금인가?</div>
+  <h2 class="section-title">중장년의 노하우가 곧 수익이 되는 기회</h2>
+  <div class="opp-grid">
+    <div class="opp-card">
+      <div class="opp-icon">🤝</div>
+      <h3>중장년의 '경험과 공감'이 핵심 역량</h3>
+      <p>숙련된 기술과 지역 네트워크, 고객 공감 능력은 에너지 사업 성장의 가장 강력한 엔진입니다.</p>
+    </div>
+    <div class="opp-card">
+      <div class="opp-icon">📈</div>
+      <h3>빠르게 성장하는 태양광 에너지 시장</h3>
+      <p>시장이 확장되는 지금이 먼저 진입하여 수익 기회를 선점할 최적의 타이밍입니다.</p>
+      <span class="opp-highlight">지금 도전하세요!</span>
+    </div>
+  </div>
+</section>
+
+<!-- 섹션 2: GW코리아의 전폭적인 파트너 지원 체계 -->
+<section class="partner-section partner-section-alt">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-badge">⚙️ 파트너 지원</div>
+    <h2 class="section-title">(주)지더블유의 전폭적인 파트너 지원 체계</h2>
+
+    <div class="support-grid" style="margin-bottom:48px;">
+      <div class="support-item">
+        <div class="s-icon">💼</div>
+        <h4>사업 컨설팅</h4>
+        <p>맞춤형 사업 전략<br>수립 지원</p>
+      </div>
+      <div class="support-item">
+        <div class="s-icon">📚</div>
+        <h4>전문 교육</h4>
+        <p>태양광 전문 지식<br>체계적 교육</p>
+      </div>
+      <div class="support-item">
+        <div class="s-icon">🔧</div>
+        <h4>시공 및 기술 전수</h4>
+        <p>현장 시공 노하우<br>기술 파트너십</p>
+      </div>
+      <div class="support-item">
+        <div class="s-icon">🏗️</div>
+        <h4>시공 및 기술 전수</h4>
+        <p>현장 시공 노하우<br>기술 파트너십</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:20px;font-weight:800;color:var(--text);margin-bottom:20px;">올인원(All-in-One) 지원 내용</h3>
+    <ul class="allinone-list">
+      <li>
+        <span class="check">✓</span>
+        <span>경험이 없어도 가능한 <strong>올인원(All-in-One) 지원</strong> — 전문 교육, 사업 컨설팅, 시공 및 기술 전문 파트너까지 본사가 모두 지원합니다.</span>
+      </li>
+      <li>
+        <span class="check">✓</span>
+        <span><strong>안정적인 사업 수익 구조 보장</strong> — 초기 비용 부담을 최소화하여 누구나 N잡이나 은퇴 후 일자리로 시작할 수 있습니다.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- 섹션 3: 모집 대상별 맞춤형 강점 및 지원 포인트 -->
+<section class="partner-section">
+  <div class="section-badge">🎯 모집 대상</div>
+  <h2 class="section-title">모집 대상별 맞춤형 강점 및 지원 포인트 요약</h2>
+  <p class="section-desc">각 대상별 핵심 역량과 (주)지더블유의 맞춤 지원 내용을 확인하세요.</p>
+
+  <table class="target-table">
+    <thead>
+      <tr>
+        <th>모집 대상</th>
+        <th>핵심 역량 및 강점</th>
+        <th>(주)지더블유 지원 내용</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">🧑‍💼 은퇴 예정자</td>
+        <td>오랜 사회 경험 및 인적 네트워크</td>
+        <td><span class="tag">전문 사업 컨설팅</span> 및 1:1 매칭 지원</td>
+      </tr>
+      <tr>
+        <td class="label">💼 N잡러 직장인</td>
+        <td>시간 활용 및 유연한 영업 능력</td>
+        <td><span class="tag">태양광 사업 전문 교육</span> 및 기술 파트너십</td>
+      </tr>
+      <tr>
+        <td class="label">📊 영업 전문가</td>
+        <td>고객 공감 및 설득 노하우</td>
+        <td><span class="tag">안정적인 고수익 구조</span> 및 시공/기술 전수</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- CTA 섹션 -->
+<section class="partner-cta">
+  <h2>지금 바로 도전하고<br>혜택을 확인하세요</h2>
+  <p>하단 문의처를 통해 인생 2막의 새로운 수익 기회를 지금 바로 잡으십시오.</p>
+  <div class="cta-buttons">
+    <a href="index.html#contact" class="btn-primary">지원 문의하기 →</a>
+    <a href="tel:02-6914-6540" class="btn-outline-white">📞 02-6914-6540</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-bottom" style="padding-top:0;border:none;">
+      <span>&copy; 2026 (주)지더블유. All rights reserved.</span>
+      <span><a href="privacy.html">개인정보처리방침</a> &nbsp;|&nbsp; <a href="index.html">홈으로</a></span>
+    </div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
