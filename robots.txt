@@ -1,0 +1,12 @@
+# GW코리아 robots.txt
+User-agent: *
+Allow: /
+Disallow: /images/*.tmp
+
+Sitemap: https://gwkorea.co.kr/sitemap.xml
+
+# Performance: allow crawling of CSS/JS
+User-agent: Googlebot
+Allow: /css/
+Allow: /js/
+Allow: /images/
